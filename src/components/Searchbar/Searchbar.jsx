@@ -1,26 +1,31 @@
-import { Formik, Form, Field } from 'formik';
+import { Formik, Field } from 'formik';
+import {
+  SearchbarStyled,
+  FormStyled,
+  SearchFormButtonStyled,
+  FormButtonLabel,
+} from './Searchbar.styled';
 
-const initialValues = { search: "" };
+const initialValues = { queryValue: '' };
 
 export const Searchbar = ({ onSubmit }) => {
   return (
-    <header class="searchbar">
-      <Formik initialValues={initialValue} onSubmit={onSubmit}>
-        <Form class="form">
-          <button type="submit" class="button">
-            <span class="button-label">Search</span>
-          </button>
+    <SearchbarStyled>
+      <Formik initialValues={initialValues} onSubmit={onSubmit}>
+        <FormStyled>
+          <SearchFormButtonStyled type="submit">
+            <FormButtonLabel>Search</FormButtonLabel>
+          </SearchFormButtonStyled>
 
           <Field
-            class="input"
             type="text"
-            autocomplete="off"
-            autofocus
+            autoComplete="off"
+            autoFocus
             placeholder="Search images and photos"
-            name="search"
+            name="queryValue"
           />
-        </Form>
+        </FormStyled>
       </Formik>
-    </header>
+    </SearchbarStyled>
   );
 };

@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
+import { ImageGalleryStyled } from './ImageGallery.styled';
 import { getImages } from 'services/services';
 
 export class ImageGallery extends Component {
@@ -7,13 +8,16 @@ export class ImageGallery extends Component {
     images: [],
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  async componentDidUpdate(prevProps, prevState) {
     const prevQuery = prevProps.query;
     const newQuery = this.props.query;
 
     if (prevQuery !== newQuery) {
       const pageNum = 1
-      getImages(newQuery, pageNum);
+      const images = await getImages(newQuery, pageNum);
+      this.setState(prevState => ({
+        images: [...prevState.images, ...images],
+      }));
     }
   }
   
@@ -21,11 +25,11 @@ export class ImageGallery extends Component {
   render() {
     const { images } = this.state;
     return (
-      <ul class="gallery">
-        {images.map(image => {
-          <ImageGalleryItem image={image} />;
-        })}
-      </ul>
+      <ImageGalleryStyled>
+        {images.map(image => (
+          <ImageGalleryItem image={image} />
+        ))}
+      </ImageGalleryStyled>
     );
   }
 }
