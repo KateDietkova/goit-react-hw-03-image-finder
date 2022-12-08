@@ -1,9 +1,10 @@
-import { Formik, Field } from 'formik';
+import { Formik } from 'formik';
+import { BsSearch } from 'react-icons/bs';
 import {
   SearchbarStyled,
   FormStyled,
   SearchFormButtonStyled,
-  FormButtonLabel,
+  FormInputStyled,
 } from './Searchbar.styled';
 
 const initialValues = { queryValue: '' };
@@ -14,10 +15,10 @@ export const Searchbar = ({ onSubmit }) => {
       <Formik initialValues={initialValues} onSubmit={onSubmit}>
         <FormStyled>
           <SearchFormButtonStyled type="submit">
-            <FormButtonLabel>Search</FormButtonLabel>
+            <BsSearch size="24"/>
           </SearchFormButtonStyled>
 
-          <Field
+          <FormInputStyled
             type="text"
             autoComplete="off"
             autoFocus

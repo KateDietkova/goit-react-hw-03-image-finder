@@ -8,7 +8,7 @@ export class ImageGallery extends Component {
     images: [],
   };
 
-  async componentDidUpdate(prevProps, prevState) {
+  async componentDidUpdate(prevProps) {
     const prevQuery = prevProps.query;
     const newQuery = this.props.query;
 
@@ -27,7 +27,7 @@ export class ImageGallery extends Component {
     return (
       <ImageGalleryStyled>
         {images.map(image => (
-          <ImageGalleryItem image={image} />
+          <ImageGalleryItem key={image.id} image={image} />
         ))}
       </ImageGalleryStyled>
     );

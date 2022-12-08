@@ -1,10 +1,10 @@
 import { ImageGalleryItemStyled, Image } from './ImageGalleryItem.styled';
 
 export const ImageGalleryItem = ({
-  image: { id, webformatURL, largeImageURL, tags },
+  image: { webformatURL, largeImageURL, tags },
 }) => {
   return (
-    <ImageGalleryItemStyled key={id}>
+    <ImageGalleryItemStyled>
       <Image src={webformatURL} alt={tags} />
     </ImageGalleryItemStyled>
   );
