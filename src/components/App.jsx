@@ -5,6 +5,7 @@ import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Searchbar } from './Searchbar/Searchbar';
 import { getImages } from 'services/services';
 import { Button } from './Button/Button';
+// import { Loader } from './Loader/Loader';
 
 export class App extends Component {
   state = {
@@ -12,37 +13,41 @@ export class App extends Component {
     images: [],
     isLoading: false,
     pageNum: 1,
+    error: null,
   };
 
   async componentDidUpdate(_, prevState) {
-    const prevQuery = prevState.query;
-    const newQuery = this.state.query;
+    try {
+      const prevQuery = prevState.query;
+      const newQuery = this.state.query;
 
-    if (prevQuery !== newQuery || prevState.pageNum !== this.state.pageNum) {
-      this.setState({isLoading: true });
-      const { pageNum } = this.state;
-      const images = await getImages(newQuery, pageNum);
-      this.setState(prevState => ({
-        images: [...prevState.images, ...images],
-        isLoading: false,
-      }));
+      if (prevQuery !== newQuery || prevState.pageNum !== this.state.pageNum) {
+        this.setState({ isLoading: true, error: null });
+        const { pageNum } = this.state;
+        const images = await getImages(newQuery, pageNum);
+        this.setState(prevState => ({
+          images: [...prevState.images, ...images],
+          isLoading: false,
+        }));
+      }
+    } catch {
+      this.setState({ error: 'Something wrong :( Please reload this page' });
     }
   }
 
   handleSubmit = ({ queryValue }) => {
     const query = queryValue.toLowerCase().split(' ').join('+');
-    this.setState({ query, pageNum: 1, images: [], });
+    this.setState({ query, pageNum: 1, images: [] });
   };
 
   onLoadMore = () => {
     this.setState(prevState => ({
       pageNum: prevState.pageNum + 1,
     }));
-    console.log(this.state.pageNum);
   };
 
   render() {
-    const { images, isLoading } = this.state;
+    const { images, isLoading, error } = this.state;
     return (
       <>
         <Searchbar onSubmit={this.handleSubmit} />
@@ -68,6 +73,7 @@ export class App extends Component {
             />
           </Box>
         )}
+        {error && <p>{error}</p>}
       </>
     );
   }

@@ -34,7 +34,3 @@ export class ImageGalleryItem extends Component {
     );
   }
 }
-
-// ({
-// image: { webformatURL, largeImageURL, tags },
-// }) => {
