@@ -9,8 +9,7 @@ export const ImageGalleryStyled = styled.ul`
   grid-gap: 16px;
   margin-top: 0;
   margin-bottom: 0;
-  padding: 0;
-  padding-top: 20px;
+  padding: 20px 0;
   list-style: none;
   margin-left: auto;
   margin-right: auto;
