@@ -5,6 +5,7 @@ import { Searchbar } from './Searchbar/Searchbar';
 import { getImages } from 'services/services';
 import { Button } from './Button/Button';
 import { Loader } from './Loader/Loader';
+import toast, { Toaster } from 'react-hot-toast';
 
 export class App extends Component {
   state = {
@@ -12,7 +13,6 @@ export class App extends Component {
     images: [],
     isLoading: false,
     pageNum: 1,
-    error: null,
   };
 
 
@@ -22,7 +22,7 @@ export class App extends Component {
       const newQuery = this.state.query;
 
       if (prevQuery !== newQuery || prevState.pageNum !== this.state.pageNum) {
-        this.setState({ isLoading: true, error: null });
+        this.setState({ isLoading: true });
 
         const { pageNum } = this.state;
         const images = await getImages(newQuery, pageNum);
@@ -33,7 +33,7 @@ export class App extends Component {
         }));
       }
     } catch {
-      this.setState({ error: 'Something wrong :( Please reload this page' });
+      toast.error('Something wrong :( Please reload this page');
     }
   }
 
@@ -49,7 +49,7 @@ export class App extends Component {
   };
 
   render() {
-    const { images, isLoading, error } = this.state;
+    const { images, isLoading } = this.state;
     return (
       <>
         <Searchbar onSubmit={this.handleSubmit} />
@@ -62,7 +62,7 @@ export class App extends Component {
           </Box>
         )}
         {isLoading && <Loader />}
-        {error && <Box display="flex" justifyContent="center">{error}</Box>}
+        <Toaster />
       </>
     );
   }

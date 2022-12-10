@@ -1,4 +1,6 @@
 import axios from 'axios';
+import toast from 'react-hot-toast';
+
 
 const API_KEY = '30924937-b89bb4702c2359d017495e0f8';
 axios.defaults.baseURL = 'https://pixabay.com/api';
@@ -10,6 +12,7 @@ export async function getImages(query, pageNum) {
     );
     return response.data.hits;
   } catch (error) {
-    console.log(error.message);
+    toast.error('Something wrong :( Please reload this page');
+    return [];
   }
 }
