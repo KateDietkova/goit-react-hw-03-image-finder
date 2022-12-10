@@ -1,22 +1,19 @@
 // import ContentLoader from 'react-content-loader';
+import { BallTriangle } from 'react-loader-spinner';
+import { Box } from 'components/Box/Box';
 
+export const Loader = () => {
+    return (
+      <Box display="flex" justifyContent="center">
+        <BallTriangle
+          height={100}
+          width={100}
+          radius={5}
+          color="#4fa94d"
+          ariaLabel="ball-triangle-loading"
+          visible={true}
+        />
+      </Box>
+    );
+}
 
-// export const Loader = () => {
-//     return (
-//       <ContentLoader
-//         speed={2}
-//         width={400}
-//         height={460}
-//         viewBox="0 0 400 460"
-//         backgroundColor="#f3f3f3"
-//         foregroundColor="#ecebeb"
-//       >
-//         <rect x="14" y="60" rx="2" ry="2" width="141" height="141" />
-//         <rect x="164" y="60" rx="2" ry="2" width="141" height="141" />
-//         <rect x="314" y="60" rx="2" ry="2" width="141" height="141" />
-//         <rect x="15" y="224" rx="2" ry="2" width="141" height="141" />
-//         <rect x="165" y="223" rx="2" ry="2" width="141" height="141" />
-//         <rect x="315" y="223" rx="2" ry="2" width="141" height="141" />
-//       </ContentLoader>
-//     );
-// }

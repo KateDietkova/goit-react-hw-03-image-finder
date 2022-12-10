@@ -1,11 +1,10 @@
-import { Component } from 'react';
-import { BallTriangle } from 'react-loader-spinner';
+import { Component} from 'react';
 import { Box } from './Box/Box';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Searchbar } from './Searchbar/Searchbar';
 import { getImages } from 'services/services';
 import { Button } from './Button/Button';
-// import { Loader } from './Loader/Loader';
+import { Loader } from './Loader/Loader';
 
 export class App extends Component {
   state = {
@@ -16,6 +15,7 @@ export class App extends Component {
     error: null,
   };
 
+
   async componentDidUpdate(_, prevState) {
     try {
       const prevQuery = prevState.query;
@@ -23,8 +23,10 @@ export class App extends Component {
 
       if (prevQuery !== newQuery || prevState.pageNum !== this.state.pageNum) {
         this.setState({ isLoading: true, error: null });
+
         const { pageNum } = this.state;
         const images = await getImages(newQuery, pageNum);
+
         this.setState(prevState => ({
           images: [...prevState.images, ...images],
           isLoading: false,
@@ -52,28 +54,15 @@ export class App extends Component {
       <>
         <Searchbar onSubmit={this.handleSubmit} />
 
-        {images.length > 0 && !isLoading && (
-          <>
-            <ImageGallery images={images} />
-            <Box display="flex" justifyContent="center" pb="15px">
-              <Button onLoadMore={this.onLoadMore} />
-            </Box>
-          </>
-        )}
+        {images.length > 0 && <ImageGallery images={images} />}
 
-        {isLoading && (
-          <Box display="flex" justifyContent="center">
-            <BallTriangle
-              height={100}
-              width={100}
-              radius={5}
-              color="#4fa94d"
-              ariaLabel="ball-triangle-loading"
-              visible={true}
-            />
+        {images.length > 0 && !isLoading && (
+          <Box display="flex" justifyContent="center" pb="15px">
+            <Button onLoadMore={this.onLoadMore} />
           </Box>
         )}
-        {error && <p>{error}</p>}
+        {isLoading && <Loader />}
+        {error && <Box display="flex" justifyContent="center">{error}</Box>}
       </>
     );
   }
