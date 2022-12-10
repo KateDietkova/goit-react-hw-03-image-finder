@@ -1,4 +1,3 @@
-// import ContentLoader from 'react-content-loader';
 import { BallTriangle } from 'react-loader-spinner';
 import { Box } from 'components/Box/Box';
 

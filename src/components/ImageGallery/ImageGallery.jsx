@@ -1,8 +1,21 @@
 import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
 import { ImageGalleryStyled } from './ImageGallery.styled';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export class ImageGallery extends Component {
+  static defaultProps = {
+    images: [],
+  };
+
+  static propTypes = {
+    images: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+      })
+    ),
+  };
+
   myRef = React.createRef();
 
   componentDidUpdate(prevProps) {
@@ -16,7 +29,6 @@ export class ImageGallery extends Component {
 
   smoothScrolling = () => {
     const firstImage = this.myRef.current.firstElementChild;
-    console.log(firstImage);
     if (!firstImage) {
       return;
     }
@@ -38,3 +50,5 @@ export class ImageGallery extends Component {
     );
   }
 }
+
+
